@@ -19,7 +19,6 @@ internal class SpotifyConfig(
 ) {
 
     private val restClientBuilder = RestClient.builder()
-        .defaultHeader(HttpHeaders.AUTHORIZATION, getAuthorizationHeaderValue())
         .messageConverters { converters ->
             converters.removeIf { it is MappingJackson2HttpMessageConverter }
 
@@ -33,6 +32,7 @@ internal class SpotifyConfig(
     fun spotifyAccountsApi(): SpotifyAccountsApi {
         val restClient = restClientBuilder
             .baseUrl("${properties.accountsUrl}/api")
+            .defaultHeader(HttpHeaders.AUTHORIZATION, getAuthorizationHeaderValue())
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
             .build()
 

@@ -1,7 +1,10 @@
 package pl.activitymusic.backend.business.spotify.entity
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 data class UserProfileData (
     val email: String,
-    val name: String?,
-    val imageUrl: String
+
+    @JsonProperty("display_name")
+    val name: String?
 )
