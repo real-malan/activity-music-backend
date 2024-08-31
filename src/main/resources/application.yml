@@ -1,2 +1,12 @@
 spring:
   application.name: backend
+
+spotify:
+  accountsUrl: 'https://accounts.spotify.com'
+  apiUrl: 'https://api.spotify.com/v1'
+  client:
+    id: ''
+    secret: ''
+
+application:
+  url: http://localhost:8080
