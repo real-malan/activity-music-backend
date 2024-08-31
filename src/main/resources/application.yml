@@ -1,6 +1,16 @@
 spring:
   application.name: backend
 
+  datasource:
+    url: ''
+    username: ''
+    password: ''
+
+  jpa.open-in-view: false
+
+  liquibase:
+    change-log: /db/changelog/db.changelog-master.xml
+
 spotify:
   accountsUrl: 'https://accounts.spotify.com'
   apiUrl: 'https://api.spotify.com/v1'

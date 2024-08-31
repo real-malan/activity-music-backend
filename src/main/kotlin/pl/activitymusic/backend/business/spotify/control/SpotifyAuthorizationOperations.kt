@@ -6,14 +6,14 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.util.UriComponentsBuilder
 import pl.activitymusic.backend.business.spotify.entity.AuthorizationResponse
 import pl.activitymusic.backend.business.spotify.entity.Scope
-import pl.activitymusic.backend.business.spotify.entity.TokensResponse
+import pl.activitymusic.backend.business.spotify.entity.Tokens
 import pl.activitymusic.backend.presentation.spotify.SpotifyResource
 
 @Component
-internal class SpotifyAccountsOperations(
+internal class SpotifyAuthorizationOperations(
     private val properties: SpotifyProperties,
     @Value("\${application.url}") private val applicationUrl: String,
-    private val accountsApi: SpotifyAccountsApi
+    private val api: SpotifyAccountsApi
 ) {
 
     fun getAuthorizationUrl(): String {
@@ -27,8 +27,8 @@ internal class SpotifyAccountsOperations(
             .toUriString()
     }
 
-    fun getTokens(response: AuthorizationResponse): TokensResponse {
-        if (response.state != getState()) throw IllegalStateException("Received state '${response.state}' is not matching")
+    fun getTokens(response: AuthorizationResponse): Tokens {
+        if (response.state != getState()) throw IllegalStateException("Received state '${response.state}' is not correct")
 
         if (response.error != null) {
             throw IllegalStateException("Error occurred '${response.error}' when authenticating")
@@ -40,10 +40,10 @@ internal class SpotifyAccountsOperations(
             add("grant_type", "authorization_code")
         }
 
-        return accountsApi.getTokens(request)
+        return api.getTokens(request)
     }
 
-    fun getTokens(refreshToken: String): TokensResponse {
+    fun getTokens(refreshToken: String): Tokens {
         TODO("Not yet implemented")
     }
 
