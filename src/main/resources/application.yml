@@ -12,11 +12,23 @@ spring:
     change-log: /db/changelog/db.changelog-master.xml
 
 spotify:
-  accountsUrl: 'https://accounts.spotify.com'
   apiUrl: 'https://api.spotify.com/v1'
-  client:
-    id: ''
-    secret: ''
+  oauth:
+    baseUrl: 'https://accounts.spotify.com'
+    authorizeUrl: '${spotify.oauth.baseUrl}/authorize'
+    tokensUrl: '${spotify.oauth.baseUrl}/api/token'
+    client:
+      id: ''
+      secret: ''
+
+strava:
+  apiUrl: 'https://www.strava.com/api/v3'
+  oauth:
+    authorizeUrl: 'https://www.strava.com/oauth/authorize'
+    tokensUrl: '${strava.apiUrl}/oauth/token'
+    client:
+      id: ''
+      secret: ''
 
 application:
   url: http://localhost:8080

@@ -6,8 +6,8 @@ import pl.activitymusic.backend.business.account.boundary.AccountOperations
 import pl.activitymusic.backend.business.account.entity.Account
 import pl.activitymusic.backend.business.account.entity.Source
 import pl.activitymusic.backend.business.spotify.boundary.SpotifyOperations
-import pl.activitymusic.backend.business.spotify.entity.AuthorizationResponse
-import pl.activitymusic.backend.business.spotify.entity.Tokens
+import pl.activitymusic.backend.business.oauth.entity.AuthorizationResponse
+import pl.activitymusic.backend.business.oauth.entity.TokensResponse
 import pl.activitymusic.backend.business.spotify.entity.UserProfileData
 import pl.activitymusic.backend.presentation.Endpoints
 
@@ -29,7 +29,7 @@ class SpotifyResource(
 
     @GetMapping("$SPOTIFY_EXTERNAL_API/authorization-callback")
     fun authorizationCallback(response: AuthorizationResponse) {
-        val tokens: Tokens = spotifyOperations.getTokens(response)
+        val tokens: TokensResponse = spotifyOperations.getTokens(response)
         val profile: UserProfileData = spotifyOperations.getUserProfile(tokens.accessToken)
         val account = Account(
             email = profile.email,
