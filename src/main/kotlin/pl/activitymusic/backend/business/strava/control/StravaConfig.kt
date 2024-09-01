@@ -1,4 +1,4 @@
-package pl.activitymusic.backend.business.spotify.control
+package pl.activitymusic.backend.business.strava.control
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -7,12 +7,12 @@ import org.springframework.web.client.support.RestClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory
 
 @Configuration
-internal class SpotifyConfig(
-    private val properties: SpotifyProperties
+internal class StravaConfig(
+    private val properties: StravaProperties
 ) {
 
     @Bean
-    fun spotifyApi(): SpotifyApi {
+    fun stravaApi(): StravaApi {
         val restClient = RestClient.builder()
             .baseUrl(properties.apiUrl)
             .build()
@@ -20,6 +20,6 @@ internal class SpotifyConfig(
         return HttpServiceProxyFactory
             .builderFor(RestClientAdapter.create(restClient))
             .build()
-            .createClient(SpotifyApi::class.java)
+            .createClient(StravaApi::class.java)
     }
 }
