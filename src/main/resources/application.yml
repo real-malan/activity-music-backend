@@ -2,9 +2,9 @@ spring:
   application.name: backend
 
   datasource:
-    url: ''
-    username: ''
-    password: ''
+    url: 'docker-compose'
+    username: 'docker-compose'
+    password: 'docker-compose'
 
   jpa.open-in-view: false
 
@@ -17,6 +17,7 @@ spotify:
     baseUrl: 'https://accounts.spotify.com'
     authorizeUrl: '${spotify.oauth.baseUrl}/authorize'
     tokensUrl: '${spotify.oauth.baseUrl}/api/token'
+    state: spotifystate
     client:
       id: ''
       secret: ''
@@ -26,9 +27,14 @@ strava:
   oauth:
     authorizeUrl: 'https://www.strava.com/oauth/authorize'
     tokensUrl: '${strava.apiUrl}/oauth/token'
+    state: stravastate
     client:
       id: ''
       secret: ''
 
 application:
   url: http://localhost:8080
+
+jasypt:
+  password: localhost
+  jpaPassword: localhost

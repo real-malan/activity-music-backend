@@ -5,6 +5,7 @@ import java.util.*
 data class OauthProperties(
     val authorizeUrl: String,
     val tokensUrl: String,
+    val state: String,
     val client: Client
 ) {
     data class Client(

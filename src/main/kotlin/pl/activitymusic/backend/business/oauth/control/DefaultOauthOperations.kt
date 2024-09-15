@@ -9,10 +9,12 @@ import org.springframework.web.util.UriComponentsBuilder
 import pl.activitymusic.backend.business.oauth.boundary.OauthOperations
 import pl.activitymusic.backend.business.oauth.entity.*
 import pl.activitymusic.backend.business.oauth.entity.ParameterName.*
+import pl.activitymusic.backend.system.crypto.CryptoOperations
 
 @Service
 internal class DefaultOauthOperations(
-    @Value("\${application.url}") private val applicationUrl: String
+    @Value("\${application.url}") private val applicationUrl: String,
+    private val cryptoOperations: CryptoOperations
 ) : OauthOperations {
 
     companion object {
@@ -30,14 +32,16 @@ internal class DefaultOauthOperations(
             .queryParam(CLIENT_ID.lowercase(), data.properties.client.id)
             .queryParam(SCOPE.lowercase(), data.scope)
             .queryParam(REDIRECT_URI.lowercase(), "${applicationUrl}${data.callbackUrl}")
-            .queryParam(STATE.lowercase(), getState())
-            .build(true)
+            .queryParam(STATE.lowercase(), cryptoOperations.encrypt(data.properties.state))
+            .build()
+            .encode()
     }
 
     override fun getTokens(data: GetTokensData): TokensResponse {
         val response: AuthorizationResponse = data.authorizationResponse
+        val state: String = cryptoOperations.decrypt(response.state)
 
-        if (response.state != getState()) {
+        if (state != data.properties.state) {
             throw IllegalStateException("Received state '${response.state}' is not correct")
         }
 
@@ -61,9 +65,5 @@ internal class DefaultOauthOperations(
             .body(request)
             .retrieve()
             .body(TokensResponse::class.java)!!
-    }
-
-    private fun getState(): String {
-        return "TODO"
     }
 }

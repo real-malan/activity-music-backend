@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import pl.activitymusic.backend.system.spring.jpa.StringCryptoConverter
 import java.time.Instant
 
 @Entity
@@ -18,9 +19,11 @@ data class Account(
     val source: Source,
 
     @Column(nullable = false)
+    @Convert(converter = StringCryptoConverter::class)
     val accessToken: String,
 
     @Column(nullable = false)
+    @Convert(converter = StringCryptoConverter::class)
     val refreshToken: String,
 
     @Id
