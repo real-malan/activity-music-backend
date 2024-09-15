@@ -1,4 +1,4 @@
-package pl.activitymusic.backend.system
+package pl.activitymusic.backend.system.spring.jpa
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing

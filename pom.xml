@@ -22,6 +22,7 @@
         <kotlin.version>1.9.25</kotlin.version>
 
         <kotlin-logging-jvm.version>7.0.0</kotlin-logging-jvm.version>
+        <jasypt.version>1.9.3</jasypt.version>
     </properties>
 
     <url/>
@@ -108,6 +109,12 @@
             <groupId>io.github.oshai</groupId>
             <artifactId>kotlin-logging-jvm</artifactId>
             <version>${kotlin-logging-jvm.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>${jasypt.version}</version>
         </dependency>
 
         <dependency>
