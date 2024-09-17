@@ -11,12 +11,12 @@
     <changeSet id="create account table" author="malan">
         <createTable tableName="account">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="account_pkey"/>
             </column>
-            <column name="last_modified_date" type="timestamp with time zone">
+            <column name="modified_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_date" type="timestamp with time zone">
+            <column name="created_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -25,10 +25,10 @@
     <changeSet id="create service table" author="malan">
         <createTable tableName="service">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="service_pkey"/>
             </column>
             <column name="account_id" type="bigint">
-                <constraints nullable="false" references="account(id)"/>
+                <constraints nullable="false" references="account(id)" foreignKeyName="service_account_id_fkey"/>
             </column>
             <column name="external_id" type="varchar">
                 <constraints nullable="false"/>
@@ -39,21 +39,22 @@
             <column name="access_token" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="access_token_expiration_date" type="timestamp with time zone">
+            <column name="access_token_expires_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
             <column name="refresh_token" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_modified_date" type="timestamp with time zone">
+            <column name="modified_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_date" type="timestamp with time zone">
+            <column name="created_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addUniqueConstraint tableName="service" columnNames="external_id, source"/>
+        <addUniqueConstraint tableName="service" columnNames="external_id, source"
+                             constraintName="service_external_id_source_key"/>
     </changeSet>
 
 </databaseChangeLog>

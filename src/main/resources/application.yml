@@ -6,10 +6,7 @@ spring:
     username: 'docker-compose'
     password: 'docker-compose'
 
-  jpa.open-in-view: false
-
-  liquibase:
-    change-log: /db/changelog/db.changelog-master.xml
+  liquibase.change-log: /db/changelog/db.changelog-master.xml
 
 spotify:
   apiUrl: 'https://api.spotify.com/v1'
@@ -32,9 +29,9 @@ strava:
       id: ''
       secret: ''
 
-application:
-  url: http://localhost:8080
+application.url: http://localhost:8080
 
 jasypt:
   password: localhost
   jpaPassword: localhost
+
